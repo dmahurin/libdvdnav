@@ -224,6 +224,12 @@ int ifoOpenNewVTSI(vm_t *vm, dvd_reader_t *dvd, int vtsN) {
     return 1; /*  We alread have it */
   }
 
+  /* for the case of external use of the vm, dvd may be controlled externally */
+  if(dvd == NULL) {
+    (vm->state).vtsN = vtsN;
+    return 1;
+  }
+
   if(vm->vtsi != NULL)
     ifoClose(vm->vtsi);
 
@@ -1082,6 +1088,8 @@ static int process_command(vm_t *vm, link_t link_values) {
     vm_print_current_domain_state(vm);
     fprintf(MSG_OUT, "libdvdnav: After printout ends.\n");
 #endif
+
+    if(vm->dvd == NULL) break; /* Only process one command if vm is used stand-alone */
 
   }
 
