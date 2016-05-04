@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libdvdvm
+Description: DVD Navigation VM library
+Version: @VERSION@
+
+Requires.private: dvdread >= 4.1.2
+Cflags: -I${includedir} @THREAD_CFLAGS@
+Libs: -L${libdir} -ldvdvm @THREAD_LIBS@
