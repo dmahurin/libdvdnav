@@ -14,7 +14,7 @@ EXTRA_DIST = msvc/ \
 	     doc/dvd_structures \
 	     doc/library_layout
 
-lib_LTLIBRARIES = libdvdnav.la
+lib_LTLIBRARIES = libdvdnav.la libdvdvm.la
 
 libdvdnav_la_SOURCES = \
 	src/dvdnav.c \
@@ -39,21 +39,33 @@ libdvdnav_la_SOURCES = \
 	src/vm/vmcmd.c \
 	src/vm/vmcmd.h
 
+libdvdvm_la_SOURCES = \
+	src/vm/decoder.c \
+	src/vm/vm.c \
+	src/vm/play.c \
+	src/vm/getset.c \
+	src/vm/vmget.c \
+	src/vm/vmcmd.c
+
 libdvdnav_la_LDFLAGS = \
 	-version-info $(DVDNAV_LT_CURRENT):$(DVDNAV_LT_REVISION):$(DVDNAV_LT_AGE) \
 	-export-symbols-regex "^dvdnav"
 libdvdnav_la_LIBADD = $(THREAD_LIBS) $(DVDREAD_LIBS)
 
+libdvdvm_la_LDFLAGS = -static
+
 pkgincludedir = $(includedir)/dvdnav
 
 pkginclude_HEADERS = \
+	src/vm/vm.h \
+	src/vm/decoder.h \
 	src/dvdnav/dvdnav.h \
 	src/dvdnav/dvdnav_events.h \
 	src/dvdnav/dvd_types.h \
 	src/dvdnav/version.h
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = misc/dvdnav.pc
+pkgconfig_DATA = misc/dvdnav.pc misc/dvdvm.pc
 
 EXTRA_PROGRAMS = menus
 
