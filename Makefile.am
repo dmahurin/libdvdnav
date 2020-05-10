@@ -40,6 +40,7 @@ libdvdnav_la_SOURCES = \
 	src/vm/vmcmd.h
 
 libdvdvm_la_SOURCES = \
+        src/logger.c \
 	src/vm/decoder.c \
 	src/vm/vm.c \
 	src/vm/play.c \
